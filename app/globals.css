@@ -1,26 +1,212 @@
 @import "tailwindcss";
 
+/* ─── Tokens ────────────────────────────────────────────────────────── */
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:              #0c100f;
+  --surface:         #121716;
+  --surface-hover:   #181e1c;
+  --surface-raised:  #1c2320;
+  --border:          #232b28;
+  --border-strong:   #333d39;
+
+  --text-primary:    #eef1ee;
+  --text-secondary:  #a6b0aa;
+  --text-muted:      #7d8982;
+
+  --accent:          #7ab49f;
+  --accent-hover:    #8cc3ae;
+  --accent-fg:       #0b1712;
+  --accent-soft:     rgba(122, 180, 159, 0.12);
+
+  --positive:        #7fb79d;
+  --negative:        #cc7e74;
+  --warning:         #c0a067;
+  --warning-soft:    rgba(192, 160, 103, 0.10);
+  --warning-border:  rgba(192, 160, 103, 0.24);
+  --warning-ink:     #d8b57d;
+
+  --button-bg:       #eef1ee;
+  --button-hover:    #dce3dd;
+  --button-fg:       #0c100f;
+
+  --chart-grid:      #232b28;
+  --chart-area:      rgba(122, 180, 159, 0.08);
+  --track:           #232b28;
+  --track-filled:    #46534d;
+  --overlay:         rgba(6, 9, 8, 0.78);
+
+  --shadow-modal:    0 20px 60px rgba(0, 0, 0, 0.50);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.40);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg:              #f7f8f6;
+  --surface:         #ffffff;
+  --surface-hover:   #f1f4f1;
+  --surface-raised:  #eef1ee;
+  --border:          #e1e6e2;
+  --border-strong:   #cbd3cd;
+
+  --text-primary:    #121814;
+  --text-secondary:  #526057;
+  --text-muted:      #66736a;
+
+  --accent:          #256e5b;
+  --accent-hover:    #1d5a4a;
+  --accent-fg:       #ffffff;
+  --accent-soft:     rgba(37, 110, 91, 0.08);
+
+  --positive:        #16794f;
+  --negative:        #b4433a;
+  --warning:         #8a6522;
+  --warning-soft:    rgba(138, 101, 34, 0.08);
+  --warning-border:  rgba(138, 101, 34, 0.22);
+  --warning-ink:     #7a5a1e;
+
+  --button-bg:       #121814;
+  --button-hover:    #2a352e;
+  --button-fg:       #ffffff;
+
+  --chart-grid:      #e1e6e2;
+  --chart-area:      rgba(37, 110, 91, 0.07);
+  --track:           #e1e6e2;
+  --track-filled:    #9ab5a9;
+  --overlay:         rgba(18, 24, 20, 0.42);
+
+  --shadow-modal:    0 20px 60px rgba(18, 24, 20, 0.18);
+  --shadow-dropdown: 0 8px 24px rgba(18, 24, 20, 0.10);
+}
+
+/* ─── Tailwind v4 theme mapping ─────────────────────────────────────── */
+@theme {
+  --color-bg:             var(--bg);
+  --color-surface:        var(--surface);
+  --color-surface-hover:  var(--surface-hover);
+  --color-surface-raised: var(--surface-raised);
+  --color-border:         var(--border);
+  --color-border-strong:  var(--border-strong);
+
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:     var(--text-muted);
+
+  --color-accent:       var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg:    var(--accent-fg);
+
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-warning:  var(--warning);
+
+  --font-sans: var(--font-geist-sans), "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+
+  --radius-card:  var(--radius-card);
+  --radius-btn:   var(--radius-btn);
+  --radius-input: var(--radius-input);
+  --radius-tag:   var(--radius-tag);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius-card: 16px;
+  --radius-btn: 8px;
+  --radius-input: 8px;
+  --radius-tag: 6px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ───────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text-primary);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Wordmarks with a faint etched contour. */
+.hero-wordmark,
+.nav-wordmark {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+
+.hero-wordmark::after,
+.nav-wordmark::after {
+  content: attr(data-word);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 34%, transparent);
+  transform: translate(0.035em, 0.03em);
+  pointer-events: none;
+}
+
+.nav-wordmark::after {
+  -webkit-text-stroke-width: 0.5px;
+  transform: translate(0.02em, 0.02em);
+}
+
+/* ─── Theme icons ────────────────────────────────────────────────────── */
+[data-theme="dark"] .theme-icon-moon,
+[data-theme="light"] .theme-icon-sun {
+  display: none;
+}
+
+/* ─── Scrollbars ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+
+/* ─── Focus ──────────────────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
